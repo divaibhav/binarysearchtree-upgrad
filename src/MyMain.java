@@ -16,6 +16,27 @@ public class MyMain {
 
         bst.levelOrderTraversal();
 
+        System.out.println("InOrder");
+        bst.inOrder(bst.getRoot());
+        System.out.println();
+
+        System.out.println("Pre Order");
+        bst.preOrder(bst.getRoot());
+        System.out.println();
+
+        System.out.println("Post Order");
+        bst.postOrder(bst.getRoot());
+        System.out.println();
+
+        System.out.println("bst.findMin() = " + bst.findMin());
+        System.out.println("bst.findMax() = " + bst.findMax());
+
+        MyBinarySearchTree bst1 = new MyBinarySearchTree();
+        //bst1.insert(100);
+        System.out.println("bst1.findMax() = " + bst1.findMax());
+        System.out.println("bst1.findMin() = " + bst1.findMin());
+
+
 
     }
 }

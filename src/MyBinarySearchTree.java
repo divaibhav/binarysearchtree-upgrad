@@ -3,6 +3,12 @@ import java.util.Queue;
 
 public class MyBinarySearchTree {
     private TreeNode root;
+    //getter
+
+    public TreeNode getRoot() {
+        return root;
+    }
+
     //insert
     public boolean insert(int element){
         TreeNode treeNode = new TreeNode(element);
@@ -66,6 +72,63 @@ public class MyBinarySearchTree {
             }
         }
     }
+    //in order
+    public void inOrder(TreeNode node){
+        if(node == null){
+            return;
+        }
+        inOrder(node.getLeft());
+        System.out.print(node.getData() + ", ");
+        inOrder(node.getRight());
+    }
+    //pre order
+    public void preOrder(TreeNode node){
+        if(node != null){
+            System.out.print(node.getData() + ", ");
+            preOrder(node.getLeft());
+            preOrder(node.getRight());
+        }
+    }
+    // post order
+    public void postOrder(TreeNode node){
+        if(node != null){
+            postOrder(node.getLeft());
+            postOrder(node.getRight());
+            System.out.print(node.getData() + ", ");
+        }
+    }
 
     // delete
+
+    // the findMin minimum and findMax maximum element form bst
+
+    public int findMin(){
+        TreeNode temp = root;
+        TreeNode previous = null;
+
+        while (temp != null){
+            previous = temp ;
+            temp = temp.getLeft();
+        }
+        if(previous != null){
+            return previous.getData();
+        }
+        return 0;
+    }
+
+    public int findMax(){
+        TreeNode temp = root;
+        TreeNode previous = null;
+        while (temp != null){
+            previous = temp;
+            temp = temp.getRight();
+        }
+        if(previous != null){
+            return previous.getData();
+        }
+        return 0;
+    }
+
+
+
 }
