@@ -6,10 +6,12 @@ public class MyMain {
         System.out.println(bst.insert(45));
         System.out.println(bst.insert(95));
         System.out.println(bst.insert(75));
-        System.out.println(bst.insert(100));
+        System.out.println(bst.insert(110));
         System.out.println(bst.insert(20));
         System.out.println(bst.insert(47));
         System.out.println(bst.insert(100));
+        System.out.println(bst.insert(97));
+        System.out.println(bst.insert(96));
 
         System.out.println("bst.search(75) = " + bst.search(75));
         System.out.println("bst.search(80) = " + bst.search(80));
@@ -36,7 +38,9 @@ public class MyMain {
         System.out.println("bst1.findMax() = " + bst1.findMax());
         System.out.println("bst1.findMin() = " + bst1.findMin());
 
-
+       // System.out.println("bst.getInOrderSuccessor(bst.getRoot().getRight()) = "
+       //         + bst.getInOrderSuccessor(bst.getRoot().getRight()));
+        System.out.println(bst.getInOrderSuccessor(bst.getRoot().getLeft()));
 
     }
 }

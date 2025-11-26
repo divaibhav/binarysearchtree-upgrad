@@ -129,6 +129,143 @@ public class MyBinarySearchTree {
         return 0;
     }
 
+    // boolean isLeaf(TreeNode node)
+    public boolean isLeaf(TreeNode node){
+        if(node == null){
+            return false;
+        }
+        return node.getLeft() == null && node.getRight() == null;
+
+    }
+    // boolean hasLeftChild(TreeNode node)
+    public boolean hasLeftChild(TreeNode node){
+        if(node != null){
+            if(node.getLeft() != null){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // boolean hasRightChild(TreeNode node)
+    public boolean hasRightChild(TreeNode node){
+        if(node != null && node.getRight() != null){
+            return true;
+        }
+        return false;
+    }
+    // boolean hasTwoChildren(TreeNode node)
+    public boolean hasTwoChildren(TreeNode node){
+        if(node != null) {
+            if(node.getLeft() != null && node.getRight() != null){
+                return true;
+            }
+        }
+        return false;
+    }
+    public TreeNode getInOrderSuccessor(TreeNode node){
+       if(node != null){
+           TreeNode inOrderSuccessor = null;
+           if(hasRightChild(node)){
+               node = node.getRight();
+               while(node != null){
+                   inOrderSuccessor = node;
+                   node = node.getLeft();
+               }
+           }
+           return inOrderSuccessor;
+       }
+       return null;
+        //check having right child,
+        // check having left child
+        // check having left child till you found
+        // null
+    }
+
+    public boolean delete(int value){
+        //search the deleting node
+        TreeNode deletingNode = root;
+        TreeNode parent = null;
+        while(deletingNode != null && deletingNode.getData() != value){
+            parent = deletingNode;
+            if(value < deletingNode.getData()){
+                deletingNode = deletingNode.getLeft();
+            }else {
+                deletingNode = deletingNode.getRight();
+            }
+        }
+        if(deletingNode != null){
+            // found the deleting node
+            // case 1 leaf node
+            if(isLeaf(deletingNode)){
+                if(isLeftChild(deletingNode, parent)){
+                    parent.setLeft(null);
+                }else{
+                    parent.setRight(null);
+                }
+                return true;
+            } else if (hasTwoChildren(deletingNode)) {
+                TreeNode inOrderSuccessor = getInOrderSuccessor(deletingNode);
+                //getParent(TreeNode node)
+                TreeNode inOrderParent = getParent(inOrderSuccessor);
+                // inOrderSuccessor is leaf node
+                if(isLeftChild(inOrderSuccessor, inOrderParent)){
+                    inOrderParent.setLeft(null);
+                }else{
+                    inOrderParent.setRight(null);
+                }
+                if(isLeftChild(deletingNode, parent)){
+                    parent.setLeft(inOrderSuccessor);
+                }else {
+                    parent.setRight(inOrderSuccessor);
+                }
+                return true;
+
+                // having right child
+
+
+            } else if (hasLeftChild(deletingNode)) {
+               //check whether deleting node is left child or right child
+                if(isLeftChild(deletingNode, parent)){
+                    //left child of parent
+                    parent.setLeft(deletingNode.getLeft());
+                } else{
+                    parent.setRight(deletingNode.getLeft());
+                }
+               return true;
+            } else if (hasRightChild(deletingNode)) {
+                if(isLeftChild(deletingNode, parent)){
+                    parent.setLeft(deletingNode.getRight());
+                }else{
+                    parent.setRight(deletingNode.getRight());
+                }
+                return true;
+            }
+
+        }
+        return false;
+    }
+
+    private TreeNode getParent(TreeNode node) {
+        if(node != null){
+            TreeNode temp = root;
+            TreeNode parent = null;
+            while (temp != null && temp.getData() != node.getData()){
+                parent = temp;
+                if(node.getData() < temp.getData()){
+                    temp = temp.getLeft();
+                }else{
+                    temp = temp.getRight();
+                }
+            }
+            return parent;
+        }
+        return null;
+    }
+
+    private static boolean isLeftChild(TreeNode deletingNode, TreeNode parent) {
+        return deletingNode.getData() < parent.getData();
+    }
 
 
 }
