@@ -297,6 +297,25 @@ public class MyBinarySearchTree {
     private static boolean isLeftChild(TreeNode deletingNode, TreeNode parent) {
         return deletingNode.getData() < parent.getData();
     }
+    public void printLeafNode(){
+        if(root != null){
+            Queue<TreeNode> queue = new LinkedList<>();
+            queue.offer(root);
+            while (!queue.isEmpty()){
+                TreeNode temp = queue.poll();
+                if(isLeaf(temp)){
+                    System.out.println(temp);
+                }else{
+                    if(hasLeftChild(temp)) {
+                        queue.offer(temp.getLeft());
+                    }
+                    if(hasRightChild(temp)) {
+                        queue.offer(temp.getRight());
+                    }
+                }
+            }
+        }
+    }
 
 
 }
