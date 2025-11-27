@@ -58,17 +58,19 @@ public class MyBinarySearchTree {
 
     //level order
     public void levelOrderTraversal(){
-        Queue<TreeNode> queue = new LinkedList<>();
-        // add root to queue
-        queue.offer(root);
-        while (!queue.isEmpty()){
-            TreeNode temp = queue.poll();
-            System.out.println(temp.getData());
-            if(temp.getLeft() != null) {
-                queue.offer(temp.getLeft());
-            }
-            if (temp.getRight() != null) {
-                queue.offer(temp.getRight());
+        if(root != null) {
+            Queue<TreeNode> queue = new LinkedList<>();
+            // add root to queue
+            queue.offer(root);
+            while (!queue.isEmpty()) {
+                TreeNode temp = queue.poll();
+                System.out.println(temp.getData());
+                if (temp.getLeft() != null) {
+                    queue.offer(temp.getLeft());
+                }
+                if (temp.getRight() != null) {
+                    queue.offer(temp.getRight());
+                }
             }
         }
     }
@@ -255,7 +257,7 @@ public class MyBinarySearchTree {
                         parent.setRight(deletingNode.getLeft());
                     }
                 }else{
-                    root = deletingNode.getLeft();
+                   root = deletingNode.getLeft();
                 }
                return true;
             } else if (hasRightChild(deletingNode)) {
