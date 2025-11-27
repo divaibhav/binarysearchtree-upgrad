@@ -198,18 +198,38 @@ public class MyBinarySearchTree {
             // found the deleting node
             // case 1 leaf node
             if(isLeaf(deletingNode)){
-                if(isLeftChild(deletingNode, parent)){
-                    parent.setLeft(null);
+                //if the deleting node is root node
+                if(parent != null) {
+                    if (isLeftChild(deletingNode, parent)) {
+                        parent.setLeft(null);
+                    } else {
+                        parent.setRight(null);
+                    }
                 }else{
-                    parent.setRight(null);
+                    root = null;
                 }
                 return true;
             } else if (hasTwoChildren(deletingNode)) {
                 TreeNode inOrderSuccessor = getInOrderSuccessor(deletingNode);
                 //getParent(TreeNode node)
                 TreeNode inOrderParent = getParent(inOrderSuccessor);
-                // inOrderSuccessor is leaf node
-                if(isLeftChild(inOrderSuccessor, inOrderParent)){
+                //call deletion on in order successor
+                if(delete(inOrderSuccessor.getData())){
+                    inOrderSuccessor.setLeft(deletingNode.getLeft());
+                    inOrderSuccessor.setRight(deletingNode.getRight());
+                    //if deleting node is root
+                    if(parent != null){
+                            if(isLeftChild(inOrderSuccessor, parent)){
+                                parent.setLeft(inOrderSuccessor);
+                            }else{
+                                parent.setRight(inOrderSuccessor);
+                            }
+                    }else{
+                        //root case
+                        root = inOrderSuccessor;
+                    }
+                }
+                /*if(isLeftChild(inOrderSuccessor, inOrderParent)){
                     inOrderParent.setLeft(null);
                 }else{
                     inOrderParent.setRight(null);
@@ -218,7 +238,7 @@ public class MyBinarySearchTree {
                     parent.setLeft(inOrderSuccessor);
                 }else {
                     parent.setRight(inOrderSuccessor);
-                }
+                }*/
                 return true;
 
                 // having right child
@@ -226,18 +246,27 @@ public class MyBinarySearchTree {
 
             } else if (hasLeftChild(deletingNode)) {
                //check whether deleting node is left child or right child
-                if(isLeftChild(deletingNode, parent)){
-                    //left child of parent
-                    parent.setLeft(deletingNode.getLeft());
-                } else{
-                    parent.setRight(deletingNode.getLeft());
+                //root case
+                if(parent != null) {
+                    if (isLeftChild(deletingNode, parent)) {
+                        //left child of parent
+                        parent.setLeft(deletingNode.getLeft());
+                    } else {
+                        parent.setRight(deletingNode.getLeft());
+                    }
+                }else{
+                    root = deletingNode.getLeft();
                 }
                return true;
             } else if (hasRightChild(deletingNode)) {
-                if(isLeftChild(deletingNode, parent)){
-                    parent.setLeft(deletingNode.getRight());
+                if(parent != null) {
+                    if (isLeftChild(deletingNode, parent)) {
+                        parent.setLeft(deletingNode.getRight());
+                    } else {
+                        parent.setRight(deletingNode.getRight());
+                    }
                 }else{
-                    parent.setRight(deletingNode.getRight());
+                    root = deletingNode.getRight();
                 }
                 return true;
             }
